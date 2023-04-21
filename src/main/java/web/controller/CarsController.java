@@ -24,16 +24,13 @@ public class CarsController {
         this.carsService = carsService;
     }
 
-//    @GetMapping()
-//    public String printCars(Model model){
-//        List<Car> carList = carsService.getCars();
-//        model.addAttribute("carsList", carList);
-//        return "cars";
-//    }
     @GetMapping()
     public String printCars(Model model, @RequestParam(value = "count", required = false) Integer numbers) {
-
-        model.addAttribute("carList", carsService.getCarList(numbers));
+        if (numbers == null) {
+            model.addAttribute("carList", carsService.getCarList(5));
+        } else {
+            model.addAttribute("carList", carsService.getCarList(numbers));
+        }
         return "cars";
     }
 
